@@ -110,3 +110,7 @@ fabric.properties
 *.metals
 
 # End of https://www.gitignore.io/api/linux,scala,intellij
+
+# added by repo creator
+.idea
+.settings

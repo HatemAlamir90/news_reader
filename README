@@ -14,7 +14,13 @@ That's exactly what we're trying to "simulate" in this project!
 	- Apache Spark 2.10 (Core, Streaming, and SQL)
 	- Apache Kafka 
 	- Scala 2.10.5
-	- Python 3.7
+	- Python 3.7.7
+	- The bunch of files in this repo. Obviously!
+
+[2] Utensil kit:
+	- IntelliJ IDEA - Community Edition
+
+
 	
 
 
