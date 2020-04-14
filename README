@@ -1,1 +1,20 @@
 News Reader!
+
+If you, like me, want to know what is happening outside your small place where you spend most of the time behind your laptop screen, you most propable bookmark one of those websites with three or four letter icons, or have their mobile app thumbanil next to Facebook or, may be, LinkedIn.
+Also, you may know that some people make big money out of reading and analyzing the news! Shouldn't be a surprise, right?
+
+If the news themselves are increazingly digitized, it makes more sense to read and analyze them using computers! Big computers! At scale!
+
+That's exactly what we're trying to "simulate" in this project!
+
+
+[1] Recipe:
+	- Cloudera Quick Start 5.13. Separate componensts listed below.
+	- Apache Hadoop 1.6
+	- Apache Spark 2.10 (Core, Streaming, and SQL)
+	- Apache Kafka 
+	- Scala 2.10.5
+	- Python 3.7
+	
+
+
