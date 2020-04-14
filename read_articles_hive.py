@@ -58,4 +58,6 @@ ax.invert_yaxis()
 ax.set_xlabel('Count')
 ax.set_title("Most Frequent Words' Counts")
 
+plt.show()
+
 fig
