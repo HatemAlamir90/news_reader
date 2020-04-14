@@ -114,3 +114,6 @@ fabric.properties
 # added by repo creator
 .idea
 .settings
+.classpath
+.project
+*.log
