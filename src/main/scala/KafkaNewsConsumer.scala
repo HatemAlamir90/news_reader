@@ -24,7 +24,7 @@ object KafkaNewsConsumer {
     // Create context with 2 second batch interval
     val sparkConf = new SparkConf().setAppName("DirectKafkaWordCount")
     sparkConf.set("spark.dynamicAllocation.enabled", "false")
-    val ssc = new StreamingContext(sparkConf, Minutes(55))
+    val ssc = new StreamingContext(sparkConf, Minutes(2))
 
     // Create direct kafka stream with brokers and topics
     val topicsSet = topics.split(",").toSet

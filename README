@@ -20,7 +20,14 @@ That's exactly what we're trying to "simulate" in this project!
 [2] Utensil kit:
 	- IntelliJ IDEA - Community Edition
 
+[3] Steps:
+	$ python read_newsapi.py &
+	This command will hit newsapi.org every hour to get top-news and write them to a kafka topic named 'news'.
+	This files connects to a Kafka broker at quickstart.cloudera:9092. You might need to change that in the above file to refer to your <kafka host>:<kafka port>
 
-	
+	$spark-submit...to be completed
 
+	$ ipython read_articles_kafka.py
+	This will run the script that reads the saved articles from Hive, and draw a couple of graphs.
+	The graphs will be drawn inline.
 
