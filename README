@@ -25,7 +25,7 @@ That's exactly what we're trying to "simulate" in this project!
 	This command will hit newsapi.org every hour to get top-news and write them to a kafka topic named 'news'.
 	This files connects to a Kafka broker at quickstart.cloudera:9092. You might need to change that in the above file to refer to your <kafka host>:<kafka port>
 
-	$spark-submit...to be completed
+	$ spark-submit --class KafkaNewsConsumer --master local finalproject/target/uber-finalproject-1.0-SNAPSHOT.jar quickstart.cloudera:9092 my-group-id news
 
 	$ ipython read_articles_kafka.py
 	This will run the script that reads the saved articles from Hive, and draw a couple of graphs.

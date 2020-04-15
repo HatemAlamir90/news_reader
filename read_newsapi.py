@@ -25,7 +25,7 @@ def import_news_to_kafka():
                              value_serializer=lambda x: dumps(x).encode('utf-8'))
     for article in articles:
         producer.send('news', value=article)
-    print("<<< %d articles written\n" % articles.length)
+    print("<<< %d articles written\n" % len(articles))
 
 
 import_news_to_kafka()

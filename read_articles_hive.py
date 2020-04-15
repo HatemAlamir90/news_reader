@@ -2,13 +2,10 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+import sys
 from json import loads
-import schedule
-import time
 from pyhive import hive
 from tensorflow.keras.preprocessing.text import Tokenizer
-get_ipython().run_line_magic('matplotlib', 'inline')
-
 
 LOOKBACK_DAYS = 1
 MAX_NUM_WORDS = 50
@@ -16,7 +13,7 @@ MAX_PLOT_WORDS = 15
 REFRESH_TIME_MIN = 2
 
 
-def show_news_stats():
+def read_articles():
     # connect to Hive and read the articles
     print('>>> reading articles from Hive...')
     cursor = hive.connect('quickstart.cloudera').cursor()
@@ -29,7 +26,7 @@ def show_news_stats():
         lookback_period=LOOKBACK_DAYS * 24 * 60 * 60)
     cursor.execute(hive_query)
     res = cursor.fetchall()
-    print("<<< %d articles read" % res.length)
+    print("<<< %d articles read" % len(res))
 
     # convert the publication date to a date-time
     articles = pd.DataFrame(res, columns=['title', 'publishedAt', 'content'])
@@ -41,7 +38,7 @@ def show_news_stats():
     articles_grouped = articles['title'].groupby(articles['publishedAtHour'])
     articles_cnt_hourly = articles_grouped.count()
     # draw a line-plot with the results
-    articles_cnt_hourly.plot.line()
+    # articles_cnt_hourly.plot.line()
 
     # count the most occuring words
     content = [c for c in articles['content'].tolist() if c is not None]
@@ -55,24 +52,35 @@ def show_news_stats():
     words = words[:MAX_PLOT_WORDS]
     counts = counts[:MAX_PLOT_WORDS]
 
-    # plot word frequency
-    plt.rcdefaults()
-    fig, ax = plt.subplots()
+    return articles_cnt_hourly, words, counts
+
+
+# plot word frequency
+plt.rcdefaults()
+fig, axs = plt.subplots(1, 2, figsize=(13.5, 5.5))
+fig.canvas.mpl_connect('close_event', sys.exit)
+
+plt.ion()
+plt.show()
+
+ans = 'r'
+
+while(ans.lower() == 'r'):
+    articles_cnt_hourly, words, counts = read_articles()
+
+    articles_cnt_hourly.plot(ax=axs[0])
+    axs[0].set_xticklabels(pd.to_datetime(
+        articles_cnt_hourly.index).strftime("%H").tolist())
+
     y_pos = np.arange(len(words))
-    ax.barh(y_pos, counts, align='center')
-    ax.set_yticks(y_pos)
-    ax.set_yticklabels(list(words))
-    ax.invert_yaxis()
-    ax.set_xlabel('Count')
-    ax.set_title("Most Frequent Words' Counts")
+    axs[1].barh(y_pos, counts, align='center')
+    axs[1].set_yticks(y_pos)
+    axs[1].set_yticklabels(list(words))
+    axs[1].invert_yaxis()
+    axs[1].set_xlabel('Count')
+    axs[1].set_title("Most Frequent Words' Counts")
 
-    plt.show()
+    plt.draw()
+    plt.pause(0.001)
 
-
-show_news_stats()
-schedule.every(REFRESH_TIME_MIN).minutes.do(show_news_stats)
-
-while True:
-    schedule.run_pending()
-    time.sleep(REFRESH_TIME_MIN)
-fig
+    ans = input("Press r to refresh or any other key to exit!")

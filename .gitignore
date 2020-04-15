@@ -117,3 +117,4 @@ fabric.properties
 .classpath
 .project
 *.log
+target/*
